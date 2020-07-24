@@ -15,8 +15,7 @@ WORKDIR /
 RUN git clone -b $BRANCH https://github.com/filecoin-project/lotus.git &&\
     cd lotus &&\
     make clean all &&\
-    make install &&\
-    make build bench
+    make install
 
 
 # runtime container stage
