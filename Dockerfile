@@ -39,10 +39,7 @@ COPY --from=build-env /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib/libgcc_s.so.1
 #COPY config/config.toml /root/config.toml
 #COPY scripts/entrypoint /bin/entrypoint
 
-RUN chmod a+x /lotus/lotus && \
-    chmod a+x /lotus/lotus-storage-miner && \
-    chmod a+x /lotus/lotus-seal-worker && \
-    ln -s /lotus/lotus /usr/bin/lotus && \
+RUN ln -s /lotus/lotus /usr/bin/lotus && \
     ln -s /lotus/lotus-storage-miner /usr/bin/lotus-storage-miner && \
     ln -s /lotus/lotus-seal-worker /usr/bin/lotus-seal-worker
 
