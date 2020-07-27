@@ -23,22 +23,19 @@ FROM nvidia/cuda:10.2-base-ubuntu18.04
 #FROM ubuntu:18.04
 
 # Instead of running apt-get just copy the certs and binaries that keeps the runtime image nice and small
-# RUN apt-get update && \
-#    apt-get install sudo ca-certificates mesa-opencl-icd ocl-icd-opencl-dev clinfo -y && \
-#    rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update -y && \
-    apt-get install clinfo -y
+RUN apt-get update && \
+    apt-get install sudo ca-certificates mesa-opencl-icd ocl-icd-opencl-dev clinfo -y && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=build-env /lotus /lotus
-COPY --from=build-env /etc/ssl/certs /etc/ssl/certs
+#COPY --from=build-env /etc/ssl/certs /etc/ssl/certs
 #COPY LOTUS_VERSION /VERSION
 
-COPY --from=build-env /lib/x86_64-linux-gnu/libdl.so.2 /lib/libdl.so.2
-COPY --from=build-env /lib/x86_64-linux-gnu/libutil.so.1 /lib/libutil.so.1 
-COPY --from=build-env /usr/lib/x86_64-linux-gnu/libOpenCL.so.1.0.0 /lib/libOpenCL.so.1
-COPY --from=build-env /lib/x86_64-linux-gnu/librt.so.1 /lib/librt.so.1
-COPY --from=build-env /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib/libgcc_s.so.1
+#COPY --from=build-env /lib/x86_64-linux-gnu/libdl.so.2 /lib/libdl.so.2
+#COPY --from=build-env /lib/x86_64-linux-gnu/libutil.so.1 /lib/libutil.so.1 
+#COPY --from=build-env /usr/lib/x86_64-linux-gnu/libOpenCL.so.1.0.0 /lib/libOpenCL.so.1
+#COPY --from=build-env /lib/x86_64-linux-gnu/librt.so.1 /lib/librt.so.1
+#COPY --from=build-env /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib/libgcc_s.so.1
 
 #COPY config/config.toml /root/config.toml
 #COPY scripts/entrypoint /bin/entrypoint
