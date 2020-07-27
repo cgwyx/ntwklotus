@@ -24,8 +24,12 @@ FROM nvidia/cuda:10.2-base-ubuntu18.04
 
 # Instead of running apt-get just copy the certs and binaries that keeps the runtime image nice and small
 # RUN apt-get update && \
-#    apt-get install sudo ca-certificates mesa-opencl-icd ocl-icd-opencl-dev -y && \
+#    apt-get install sudo ca-certificates mesa-opencl-icd ocl-icd-opencl-dev clinfo -y && \
 #    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update -y && \
+    apt-get install clinfo -y
+
 COPY --from=build-env /lotus /lotus
 COPY --from=build-env /etc/ssl/certs /etc/ssl/certs
 #COPY LOTUS_VERSION /VERSION
@@ -40,8 +44,8 @@ COPY --from=build-env /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib/libgcc_s.so.1
 #COPY scripts/entrypoint /bin/entrypoint
 
 RUN ln -s /lotus/lotus /usr/bin/lotus && \
-    ln -s /lotus/lotus-storage-miner /usr/bin/lotus-storage-miner && \
-    ln -s /lotus/lotus-seal-worker /usr/bin/lotus-seal-worker
+    ln -s /lotus/lotus-miner /usr/bin/lotus-miner && \
+    ln -s /lotus/lotus-worker /usr/bin/lotus-worker
 
 #chmod u+x /lotus
 
